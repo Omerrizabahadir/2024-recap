@@ -9,5 +9,5 @@ public default void defaultMethod(){
     System.out.println("MyInterface 01 defaultMethod");
 
 }
-
+    public abstract void test();
 }
