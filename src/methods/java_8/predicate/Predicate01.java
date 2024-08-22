@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 public class Predicate01 {
     //Predicate condition(if) kontrolü yapar
     //Functional interface'tir.->Bu nedenle 1 tane abstract metodu olmalı
+    //bir değer alır ve boolean sonuç döndürür.Genellikle Collections 'lar üzerinde filtreleme yapar veya lambda ifadeleriyla kullanılır
 
     public static void main(String[] args) {
         //AŞAĞIDAKİ TÜM KULLANIMLAR AYNI SONUCU VERECEKTİR!!!!!!!
