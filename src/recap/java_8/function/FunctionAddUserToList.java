@@ -13,7 +13,7 @@ public class FunctionAddUserToList {
 
         List <User> userList = functionAddUserToList.createUserList();
         functionAddUserToList.processAndPrintUsers(userList);
-       
+
     }
     public List<User> createUserList(){
 
