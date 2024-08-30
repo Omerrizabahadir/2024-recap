@@ -31,8 +31,6 @@ public class MakeStarsPattern02 {
         //Other way for inner loop
         // Dış döngü: Her bir satırı oluşturmak için
         for (int i = 0; i < satirSayisi; i++) {
-            // Boşlukları yazdır
-            System.out.print(" ".repeat(i));
 
             // Yıldızları yazdır
             System.out.print("*".repeat(satirSayisi - i));
