@@ -1,15 +1,16 @@
 package recap.algorithm;
 
 public class MakeStarsPattern03 {
-    /* *****
+    /*
+       *****
         ****
          ***
           **
-           *  */
+           *   */
 
     public static void main(String[] args) {
 
-        int n = 5;        // Yıldızların en fazla olduğu satır sayısı
+        int n = 5;         // Yıldızların en fazla olduğu satır sayısı
         getStarPatternWithLoop(n);
 
     }
