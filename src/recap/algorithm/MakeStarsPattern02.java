@@ -17,7 +17,7 @@ public class MakeStarsPattern02 {
         int satirSayisi = 5;
 
         System.out.println("iç döngü kullanarak deseni yazdırma : ");
-        getStarsPatternWithoutInnerLoop(satirSayisi);
+        getStarsPatternWithInnerLoop(satirSayisi);
 
         System.out.println("--------------");
 
@@ -38,22 +38,19 @@ public class MakeStarsPattern02 {
             // Satırı bitirip bir alt satıra geçmek için yeni satır karakteri
             System.out.println();
         }
-        }
 
+    }
 
     public static void getStarsPatternWithInnerLoop(int satirSayisi) {
         // Dış döngü: Her bir satırı oluşturmak için
-        for (int i = 1; i < satirSayisi; i++) {
+        for (int i = satirSayisi; i > 0; i--) {
             //iç döngü : Satıra yıldızları yerleştirmek için
-            for (int j = 1; j < i; j++) {
+            for (int j = 0; j < i; j++) {
                 //Yıldızları aynı satıra yazdır
                 System.out.print("*");
             }
             // Satırı bitirip bir alt satıra geçmek için yeni satır karakteri
             System.out.println();
-
-
-            System.out.println("----------");
 
         }
     }
