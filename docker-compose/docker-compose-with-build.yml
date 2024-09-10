@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: recap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:                            #Bu anahtar kelime, Docker Compose'un backend servisi için özel bir Docker imajı oluşturacağını belirtir. Docker Compose, bu yapılandırmayı kullanarak Dockerfile'dan bir imaj oluşturur.
+      context: .                      #context anahtar kelimesi, Docker imajı oluşturulurken kullanılacak dosyaların bulunduğu dizini belirtir. . ifadesi, mevcut dizini (Docker Compose dosyasının bulunduğu dizin) temsil eder. Yani, Dockerfile ve diğer gerekli dosyalar bu dizinde yer almalıdır.
+      dockerfile: Dockerfile          #dockerfile anahtar kelimesi, Docker imajını oluşturmak için kullanılacak Dockerfile'ın adını belirtir. Bu örnekte, Dockerfile'ın adı basitçe Dockerfile olarak verilmiştir. Dockerfile, imajın nasıl inşa edileceğini tanımlar.
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/recap
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123456
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

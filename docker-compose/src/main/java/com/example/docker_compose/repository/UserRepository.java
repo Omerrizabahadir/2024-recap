@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "SELECT u.* FROM users u INNER JOIN orders o ON u.id = o.user_id AND o.product_id = :productId", nativeQuery = true)
     List<User> findUserListByProductIdNative(@Param("productId") Long productId);
 
-    @Query("SELECT new com.example.jpa.dto.UserOrderDTO(u.username, u.email, o.price) FROM User u INNER JOIN Order o ON u.id = o.userId AND o.productId = :productId")
+    @Query("SELECT new com.example.docker_compose.dto.UserOrderDTO(u.username, u.email, o.price) FROM User u INNER JOIN Order o ON u.id = o.userId AND o.productId = :productId")
     List<UserOrderDTO> findUserOrderListByProductId(@Param("productId") Long productId);
 
     @Query(value = "SELECT u.username AS username, u.email AS email, o.price AS price FROM users u INNER JOIN orders o ON u.id = o.user_id WHERE o.product_id = :productId", nativeQuery = true)

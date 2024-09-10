@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/get")
+@RequestMapping(name = "get")
 public class GetController {
     @Autowired
     private OrderRepository orderRepository;

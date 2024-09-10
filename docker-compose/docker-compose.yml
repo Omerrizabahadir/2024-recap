@@ -1,26 +1,30 @@
+#Bu, Docker Compose dosyasının sürümünü belirtir.
 version: '3.8'
+#services:-->uygulamanızda kullanılan servisleri tanımlar. Her bir servis, bir konteyneri temsil eder.
 services:
-  db:
-    image: postgres:15
-    restart: always
-    environment:
-      POSTGRES_DB: recap
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-    volumes:
+  db:                             #PostgreSQL veritabanı servisi. Veritabanı için bir konteyner tanımlar.
+    image: postgres:15            #PostgreSQL'in 15. sürümünü içeren bir Docker imajını kullanır.
+    restart: always               #Bu seçenek, konteynerin her zaman yeniden başlatılmasını sağlar, örneğin, konteyner çökerse veya Docker hizmeti yeniden başlatılırsa.
+    environment:                  #Çevre değişkenleri ayarlar. Bu değişkenler PostgreSQL'in yapılandırılmasını sağlar:
+      POSTGRES_DB: recap          #POSTGRES_DB: Oluşturulacak veritabanının adı (recap).
+      POSTGRES_USER: postgres     #POSTGRES_USER: PostgreSQL kullanıcı adı (postgres).
+      POSTGRES_PASSWORD: 123456   #POSTGRES_PASSWORD: PostgreSQL kullanıcı şifresi (123456).
+    volumes:                      #veritabanı verilerinin kalıcı olmasını sağlar ve konteyner yeniden başlatıldığında veya silindiğinde verilerin kaybolmamasını garanti eder. Veriler, postgres_data adlı bir hacimde saklanır ve bu hacim /var/lib/postgresql/data dizinine bağlanır.
         - postgres_data:/var/lib/postgresql/data
+    ports:                        #Konteynerin dış portları ile iç portları eşler. Burada dışarıdan erişim için 5433 portu kullanılır ve bu, PostgreSQL'in iç portu olan 5432 ile eşlenir. Böylece, dışarıdan PostgreSQL'e erişim 5433 portu üzerinden sağlanır.
+      - "5433:5432"               #ilki dışardaki 5433 bunu değiştirdik çünkü benim postgresql uygulamamı 5432 den dinliyordu.şidi 5433 ten dinleyecek ve çakışmayacak -----ikincisi 5432 içerdeki.bu değişmeyecek
 
-  backend:
-    image: omerriza/docker-compose
-    environment:
+  backend:                        #Spring Boot uygulamasını temsil eden servis.
+    image: omerriza/docker-compose #Spring Boot uygulamanızın Docker imajı. Bu imaj, Docker Hub'dan çekilecektir. Eğer özel bir imaj kullanıyorsanız, burada imaj adını belirtirsiniz.
+    environment:                    #Çevre değişkenlerini ayarlar. Bu değişkenler Spring Boot uygulamanızın PostgreSQL veritabanına nasıl bağlanacağını belirtir:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/recap
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: 123456
-    ports:
+    ports:                          #Spring Boot uygulamasının dış dünyaya sunduğu port. 8080 portu iç ve dış port olarak eşlenir, böylece uygulamaya dışarıdan 8080 portu üzerinden erişilebilir.
       - "8080:8080"
-    depends_on:
+    depends_on:                     #Bu, backend servisi başlatılmadan önce db servisi başlatılmasını sağlar. Bu, Spring Boot uygulamanızın veritabanı servisi başlamadan başlatılmamasını garanti eder.
       - db
 
 volumes:
-  postgres_data:
+  postgres_data:                    # Docker Compose yapılandırması tarafından kullanılan hacimleri tanımlar. postgres_data adlı hacim, PostgreSQL veritabanı verilerini saklamak için kullanılır ve bu hacim, db servisi tarafından kullanılır.
 
